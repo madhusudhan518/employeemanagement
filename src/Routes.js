@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Home from './modules/employee/screens/Home';
+import Explorer from './modules/employee/screens/explorer.js';
 
 export default function Routes(){
  return (
     <Switch>
-      <Route path="/" component={Home} />
+      <Route path="/" component={Explorer} />
     </Switch>
  )
 }
