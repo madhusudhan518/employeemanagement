@@ -1,15 +1,28 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Row, Col, Form, Button } from 'react-bootstrap';
-import { Router } from 'react-router-dom';
+import { fetchEmployee } from '../actions';
 
 class Explorer extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      employeeName: undefined
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     const searchString = document.getElementById("EmployeeName").value;
-    var transitionTo = Router.transitionTo;
-    transitionTo(`/overview/${searchString}`);
+    this.setState({ employeeName: searchString });
+    const { fetchEmployee } = this.props;
+    fetchEmployee(searchString);
   }
+
   render() {
+    const {employeeName} = this.state;
+    const { employees } = this.props;
     return (
       <Row>
         <Row style={{marginBottom: "20px"}}>
@@ -29,9 +42,20 @@ class Explorer extends Component {
             </Form.Row>
           </Form>
         </Col>
+          <Col md={{offset: 3, span: 6}}>
+            {employees.keys && employees[employeeName].keys &&
+              <Link to={`/overview/${employeeName}`}>
+                <h2>`Please click here to overview ${employeeName}`</h2>
+              </Link>
+            }
+          </Col>
       </Row>
     )
   }
 }
 
-export default Explorer;
+const mapStateToProps = ({employeeReducer})=>({
+  employees: employeeReducer.employees
+})
+const mapDispatchToProps = { fetchEmployee };
+export default  connect(mapStateToProps, mapDispatchToProps)(Explorer);
