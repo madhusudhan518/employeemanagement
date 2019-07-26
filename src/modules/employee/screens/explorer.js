@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { fetchEmployee } from '../actions';
@@ -44,9 +45,11 @@ class Explorer extends Component {
         </Col>
           <Col md={{offset: 3, span: 6}}>
             {employeeName && employees[employeeName.toLowerCase()] ?
-              <Link to={`/overview?Employee=${employeeName}`}>
-                <h2>Please click here to overview {employeeName}</h2>
-              </Link>
+                <h2>
+                  <Link to={`/overview/${employeeName}`}>
+                    Please click here to overview {employeeName}
+                  </Link>
+                </h2>
               :
               (employeeName && !employees[employeeName.toLowerCase()] && <h2> Employee Not Found </h2>)
             }

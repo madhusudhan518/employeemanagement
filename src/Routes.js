@@ -1,14 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Explorer from './modules/employee/screens/explorer';
-import Overview from './modules/employee/screens/overview';
+import EmployeeOverview from './modules/employee/screens/EmployeeOverview';
 
 export default function Routes(){
  return (
     <Switch>
-      <Route path="/" component={Explorer} />
-      <Route path="/overview/:EmployeeName" component={Overview} />
+      <Route from="/" exact to="/"  component={Explorer} />
+      <Route path="/overview/:employeeName" component={EmployeeOverview} />
     </Switch>
  )
 }
-
