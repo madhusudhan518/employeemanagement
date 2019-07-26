@@ -8,9 +8,10 @@ export const requestEmployee = () => ({
   type: ACTION_TYPES.REQUEST_EMPLOYEE
 });
 
-export const receivedEmployee = response => ({
+export const receivedEmployee = ({result, name}) => ({
   type: ACTION_TYPES.RECEIVE_EMPLOYEE,
-  response: response
+  response: result,
+  name: name.toLowerCase()
 });
 
 export const requestFailure = response => ({
@@ -26,7 +27,7 @@ export function fetchEmployee(name){
       })
       .then(res => res.json())
       .then(json => {
-        dispatch(receivedEmployee(json));
+        dispatch(receivedEmployee({result: json , name: name}));
       })
       .catch(error => dispatch(requestFailure(error)));
   };

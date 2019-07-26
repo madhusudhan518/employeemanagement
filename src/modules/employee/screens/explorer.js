@@ -43,10 +43,12 @@ class Explorer extends Component {
           </Form>
         </Col>
           <Col md={{offset: 3, span: 6}}>
-            {employees.keys && employees[employeeName].keys &&
-              <Link to={`/overview/${employeeName}`}>
-                <h2>`Please click here to overview ${employeeName}`</h2>
+            {employeeName && employees[employeeName.toLowerCase()] ?
+              <Link to={`/overview?Employee=${employeeName}`}>
+                <h2>Please click here to overview {employeeName}</h2>
               </Link>
+              :
+              (employeeName && !employees[employeeName.toLowerCase()] && <h2> Employee Not Found </h2>)
             }
           </Col>
       </Row>
