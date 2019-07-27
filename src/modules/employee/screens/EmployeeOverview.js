@@ -1,24 +1,26 @@
 import React, { Component } from 'react';
-import { ListGroup } from 'react-bootstrap';
+import { Accordion, Card, Button, ListGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class EmployeeOverview extends Component {
   render() {
     const { employee, name } = this.props;
     return(
-      <div>
-        <h1>Employee Overview</h1>
-        <p>Subordinates of employee {name}</p>
-        <ListGroup>
-        {employee["direct-subordinates"].map( (subordinate, index) => {
-          return(<ListGroup.Item key={index}>{subordinate}</ListGroup.Item>)
-        }
-        )
-
-        }
-
-        </ListGroup>
-      </div>
+      <Card className="text-center">
+        <Card.Header>Employee Overview</Card.Header>
+        <Card.Body>
+          <Card.Text style={{ width: '30rem' }}>
+            <ListGroup>
+            <Card.Title>Subordinates of employee <b>{name}</b></Card.Title>
+            {
+              employee["direct-subordinates"].map( (subordinate, index) => {
+                return(<ListGroup.Item key={index}>{subordinate}</ListGroup.Item>)
+              })
+            }
+            </ListGroup>
+          </Card.Text>
+        </Card.Body>
+      </Card>
     )
   }
 }
