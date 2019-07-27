@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, ListGroup } from 'react-bootstrap';
 import { fetchEmployee } from '../actions';
+import './newStyles.css';
 
 class Explorer extends Component {
   constructor(props){
@@ -51,11 +52,11 @@ class Explorer extends Component {
               {employeeName && employees[employeeName.toLowerCase()] ?
                   <h2>
                     <Link to={`/overview/${employeeName}`}>
-                      Please click here to overview {employeeName}
+                      Please click here to {employeeName} overview 
                     </Link>
                   </h2>
                 :
-                (employeeName && !employees[employeeName.toLowerCase()] && <h2> Employee Not Found </h2>)
+                (employeeName && !employees[employeeName.toLowerCase()] && <h4 id="no-employee"> Employee Not Found </h4>)
               }
             </Col>
           </Row>
