@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchEmployee } from '../actions';
 import { getSubSubOrdinatesList } from '../utils';
@@ -41,11 +42,12 @@ class EmployeeOverview extends Component {
                   return (<ListGroup.Item key={index}>{subordinate}</ListGroup.Item>)
                 })
                 :
-                "No Sub SubOrdinates"
+                <h5 style={{color: 'red'}}>No Sub SubOrdinates</h5>
               }
             </ListGroup>
           </Card.Text>
         </Card.Body>
+        <Link to={`/`}>Back</Link>
       </Card>
     )
   }
