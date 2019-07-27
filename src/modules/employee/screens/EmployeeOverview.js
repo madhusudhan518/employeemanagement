@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ListGroup } from 'react-bootstrap';
+import { Accordion, Card, Button, ListGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { fetchEmployee } from '../actions';
 import { getSubSubOrdinatesList } from '../utils';
@@ -22,27 +22,31 @@ class EmployeeOverview extends Component {
       return <h2> Employee Not Found </h2>
     }
     return(
-      <div>
-        <h1>Employee Overview</h1>
-        <h3>Subordinates of employee {name}</h3>
-        <ListGroup>
-        {employee["direct-subordinates"].map( (subordinate, index) => {
-          return(<ListGroup.Item key={index}>{subordinate}</ListGroup.Item>)
-        }
-        )
-        }
-        </ListGroup>
-          <h4>Sub Subordinates</h4>
-          <ListGroup>
-          {subSubOrdinateList.length ? 
-           subSubOrdinateList.map((subordinate,index) => {
-              return (<ListGroup.Item key={index}>{subordinate}</ListGroup.Item>)
-            })
-            :
-            "No Sub SubOrdinates"
-          }
-        </ListGroup>
-      </div>
+      <Card className="text-center">
+        <Card.Header>Employee Overview</Card.Header>
+        <Card.Body>
+          <Card.Text style={{ width: '30rem' }}>
+            <ListGroup>
+            <Card.Title>Subordinates of employee <b>{name}</b></Card.Title>
+            {
+              employee["direct-subordinates"].map( (subordinate, index) => {
+                return(<ListGroup.Item key={index}>{subordinate}</ListGroup.Item>)
+              })
+            }
+            </ListGroup>
+            <ListGroup>
+              <Card.Title> Sub-Subordinates of employee <b>{name}</b></Card.Title>
+              {subSubOrdinateList.length ?
+                subSubOrdinateList.map((subordinate, index) => {
+                  return (<ListGroup.Item key={index}>{subordinate}</ListGroup.Item>)
+                })
+                :
+                "No Sub SubOrdinates"
+              }
+            </ListGroup>
+          </Card.Text>
+        </Card.Body>
+      </Card>
     )
   }
 }
