@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, ListGroup } from 'react-bootstrap';
 import { fetchEmployee } from '../actions';
