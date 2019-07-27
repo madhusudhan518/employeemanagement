@@ -30,9 +30,12 @@ class EmployeeOverview extends Component {
             <ListGroup>
             <Card.Title>Subordinates of employee <b>{name}</b></Card.Title>
             {
+              employee["direct-subordinates"] ?
               employee["direct-subordinates"].map( (subordinate, index) => {
                 return(<ListGroup.Item key={index}>{subordinate}</ListGroup.Item>)
               })
+              :
+              <h5 style={{ color: 'red' }}>No Sub SubOrdinates</h5>
             }
             </ListGroup>
             <ListGroup>
