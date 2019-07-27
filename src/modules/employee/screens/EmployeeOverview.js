@@ -26,7 +26,7 @@ class EmployeeOverview extends Component {
       <Card className="text-center">
         <Card.Header>Employee Overview</Card.Header>
         <Card.Body>
-          <Card.Text style={{ width: '30rem' }}>
+          {/* <Card.Titl style={{ width: '30rem' }}> */}
             <ListGroup>
             <Card.Title>Subordinates of employee <b>{name}</b></Card.Title>
             {
@@ -48,7 +48,7 @@ class EmployeeOverview extends Component {
                 <h5 style={{color: 'red'}}>No Sub SubOrdinates</h5>
               }
             </ListGroup>
-          </Card.Text>
+          {/* </Card.Text> */}
         </Card.Body>
         <Link to={`/`}>Back</Link>
       </Card>

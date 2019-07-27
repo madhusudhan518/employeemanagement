@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, ListGroup } from 'react-bootstrap';
-import { fetchEmployee } from '../actions';
+import { fetchEmployee, dispatchSearch } from '../actions';
 import './newStyles.css';
 
 class Explorer extends Component {
@@ -17,8 +17,9 @@ class Explorer extends Component {
     e.preventDefault();
     const searchString = document.getElementById("EmployeeName").value;
     this.setState({ employeeName: searchString });
-    const { fetchEmployee } = this.props;
+    const { fetchEmployee, dispatchSearch } = this.props;
     fetchEmployee(searchString);
+    dispatchSearch(searchString);
   }
 
   render() {
@@ -52,7 +53,7 @@ class Explorer extends Component {
               {employeeName && employees[employeeName.toLowerCase()] ?
                   <h2>
                     <Link to={`/overview/${employeeName}`}>
-                      Please click here to {employeeName} overview
+                    Please click here to  overview {employeeName}
                     </Link>
                   </h2>
                 :
@@ -71,9 +72,14 @@ class Explorer extends Component {
               <ListGroup>
               {searches.map( (name, index) => {
                 return(
-                  <ListGroup.Item key={index}>
-                    <Link to={`/overview/${name}`}>{name}</Link>
-                  </ListGroup.Item>
+                 <ListGroup.Item key={index}>
+                   {employees[name.toLowerCase()] ? 
+                   <Link to={`overview/${name}`}>
+                    {name}
+                   </Link> 
+                   : 
+                   name}
+                 </ListGroup.Item>
                 );
               }
               )}
@@ -90,5 +96,5 @@ const mapStateToProps = ({employeeReducer})=>({
   employees: employeeReducer.employees,
   searches: employeeReducer.searches
 })
-const mapDispatchToProps = { fetchEmployee };
+const mapDispatchToProps = { fetchEmployee, dispatchSearch };
 export default  connect(mapStateToProps, mapDispatchToProps)(Explorer);

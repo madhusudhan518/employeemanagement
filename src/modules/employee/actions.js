@@ -1,7 +1,8 @@
  export const ACTION_TYPES = {
    REQUEST_EMPLOYEE: 'employee/REQUEST_EMPLOYEE',
    RECEIVE_EMPLOYEE: 'employee/RECEIVE_EMPLOYEE',
-   FETCH_EMPLOYEE_FAILURE: 'employee/FETCH_EMPLOYEE_FAILURE'
+   FETCH_EMPLOYEE_FAILURE: 'employee/FETCH_EMPLOYEE_FAILURE',
+   STORE_SEARCHES: 'employee/STORE_SEARCHES'
  }
 
 export const requestEmployee = () => ({
@@ -19,6 +20,11 @@ export const requestFailure = response => ({
   response: response
 });
 
+export const storeSearch = name => ({
+  type: ACTION_TYPES.STORE_SEARCHES,
+  name: name
+})
+
 export function fetchEmployee(name){
   return dispatch => {
     return fetch(`http://api.additivasia.io/api/v1/assignment/employees/${name}`,
@@ -31,4 +37,10 @@ export function fetchEmployee(name){
       })
       .catch(error => dispatch(requestFailure(error)));
   };
+}
+
+export function dispatchSearch(name){
+  return dispatch => {
+    dispatch(storeSearch(name));
+  }
 }

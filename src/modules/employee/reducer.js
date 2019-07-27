@@ -17,12 +17,16 @@ export default function employeeReducer(state=initialState, action){
            ...state.employees,
            [name]: { "designation": response[0], "direct-subordinates": response[1] && response[1]["direct-subordinates"],
             }
-         },
-         searches: Array.from(new Set([...state.searches, name]))
+         }
        };
      }
      break;
 
+    case ACTION_TYPES.STORE_SEARCHES:
+     return {
+       ...state,
+       searches: Array.from(new Set([...state.searches, name]))
+     }
     case ACTION_TYPES.FETCH_EMPLOYEE_FAILURE:
       return { ...state, error: response.error};
 
