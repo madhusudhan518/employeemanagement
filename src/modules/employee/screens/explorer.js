@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button, ListGroup } from 'react-bootstrap';
 import { fetchEmployee } from '../actions';
@@ -23,7 +22,7 @@ class Explorer extends Component {
 
   render() {
     const {employeeName} = this.state;
-    const { employees } = this.props;
+    const { employees, searches } = this.props;
     return (
       <div>
         <Container>
@@ -69,7 +68,14 @@ class Explorer extends Component {
             </Col>
             <Col sm={4} md={4} lg={4} >
               <ListGroup>
-                <ListGroup.Item></ListGroup.Item>
+              {searches.map( (name, index) => {
+                return(
+                  <ListGroup.Item key={index}>
+                    <Link to={`/overview/${name}`}>{name}</Link>
+                  </ListGroup.Item>
+                );
+              }
+              )}
               </ListGroup>
             </Col>
           </Row>
@@ -80,7 +86,8 @@ class Explorer extends Component {
 }
 
 const mapStateToProps = ({employeeReducer})=>({
-  employees: employeeReducer.employees
+  employees: employeeReducer.employees,
+  searches: employeeReducer.searches
 })
 const mapDispatchToProps = { fetchEmployee };
 export default  connect(mapStateToProps, mapDispatchToProps)(Explorer);
