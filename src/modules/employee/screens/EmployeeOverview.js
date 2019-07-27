@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Accordion, Card, Button, ListGroup } from 'react-bootstrap';
+import { Card, ListGroup } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { fetchEmployee } from '../actions';
 import { getSubSubOrdinatesList } from '../utils';
