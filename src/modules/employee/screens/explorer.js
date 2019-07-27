@@ -52,7 +52,7 @@ class Explorer extends Component {
               {employeeName && employees[employeeName.toLowerCase()] ?
                   <h2>
                     <Link to={`/overview/${employeeName}`}>
-                      Please click here to {employeeName} overview 
+                      Please click here to {employeeName} overview
                     </Link>
                   </h2>
                 :
@@ -65,7 +65,7 @@ class Explorer extends Component {
         <Container>
           <Row>
             <Col sm={4} md={4} lg={4} >
-              <h4>History of search</h4>
+              <h4>History of search:</h4>
             </Col>
             <Col sm={4} md={4} lg={4} >
               <ListGroup>
