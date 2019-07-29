@@ -1,11 +1,9 @@
-export function getSubSubOrdinatesList(subordinates, employees){
-  var subSubOrdinates = [];
-  subordinates && subordinates.forEach((subordinate=>{
-    const details = employees[subordinate.toLowerCase()];
-    const subordinates = details && details['direct-subordinates'];
-    subordinates && subordinates.forEach((name)=>{
-      subSubOrdinates.push(name);
+export function getSubOrdinatesList(list,name, employees){
+  const employee = employees[name.toLowerCase()];
+  const subordinates = employee && employee['direct-subordinates']
+  subordinates && subordinates.forEach((subordinate)=>{
+      list.push(subordinate);
+      getSubOrdinatesList(list,subordinate,employees );
     })
-  }))
-  return subSubOrdinates.filter((el,i,array)=> i === array.indexOf(el));
+  // return subSubOrdinate.filter((el,i,array)=> i === array.indexOf(el));
 }

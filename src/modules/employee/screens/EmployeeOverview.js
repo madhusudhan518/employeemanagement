@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Card, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchEmployee } from '../actions';
-import { getSubSubOrdinatesList } from '../utils';
+import { getSubOrdinatesList } from '../utils';
 
+var functionCalls = 0;
 class EmployeeOverview extends Component {
-
   componentDidMount(){
     const { employee, fetchEmployee } = this.props;
     const subordinates = employee['direct-subordinates'];
@@ -14,10 +14,33 @@ class EmployeeOverview extends Component {
       fetchEmployee(subordinate);
     })
   }
+  // renderEmployeeSubordinateList = (empName)=>{
+  //   const { employees } = this.props;
+  //   const employee = employees[empName.toLowerCase()];
+  //   if(employee){
+  //     return (
+  //     <Fragment key={functionCalls++}>
+  //       <b>{empName}</b>
+  //       {
+  //         employee["direct-subordinates"] ?
+  //           employee["direct-subordinates"].forEach((subordinate, index) => {
+  //              this.renderEmployeeSubordinateList(subordinate)
+  //           })
+  //           :
+  //           <h5 style={{ color: 'red' }}>No SubOrdinates</h5>
+  //       }
+  //     </Fragment>
+  //     )
+  //   }
+    
+  // }
+
 
   render() {
     const { employee, name, employees } = this.props;
-    const subSubOrdinateList = getSubSubOrdinatesList(employee['direct-subordinates'], employees);
+    var SubOrdinateList = [];
+    var subordinateHtml = "";
+    getSubOrdinatesList(SubOrdinateList, name, employees, subordinateHtml);
 
     if (!employee) {
       return <h2> Employee Not Found </h2>
@@ -26,29 +49,8 @@ class EmployeeOverview extends Component {
       <Card className="text-center">
         <Card.Header>Employee Overview</Card.Header>
         <Card.Body>
-          {/* <Card.Titl style={{ width: '30rem' }}> */}
-            <ListGroup>
-            <Card.Title>Subordinates of employee <b>{name}</b></Card.Title>
-            {
-              employee["direct-subordinates"] ?
-              employee["direct-subordinates"].map( (subordinate, index) => {
-                return(<ListGroup.Item key={index}>{subordinate}</ListGroup.Item>)
-              })
-              :
-              <h5 style={{ color: 'red' }}>No Sub SubOrdinates</h5>
-            }
-            </ListGroup>
-            <ListGroup>
-              <Card.Title> Sub-Subordinates of employee <b>{name}</b></Card.Title>
-              {subSubOrdinateList.length ?
-                subSubOrdinateList.map((subordinate, index) => {
-                  return (<ListGroup.Item key={index}>{subordinate}</ListGroup.Item>)
-                })
-                :
-                <h5 style={{color: 'red'}}>No Sub SubOrdinates</h5>
-              }
-            </ListGroup>
-          {/* </Card.Text> */}
+          <b>{name}</b>
+          {SubOrdinateList.map((name, index)=>{ return <h4 key={index}>{name}</h4>})}
         </Card.Body>
         <Link to={`/`}>Back</Link>
       </Card>

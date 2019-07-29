@@ -34,6 +34,9 @@ export function fetchEmployee(name){
       .then(res => res.json())
       .then(json => {
         dispatch(receivedEmployee({result: json , name: name}));
+        json.length && json[1]["direct-subordinates"] && json[1]["direct-subordinates"].forEach((subordinate)=>{
+           dispatch(fetchEmployee(subordinate));
+        })
       })
       .catch(error => dispatch(requestFailure(error)));
   };
