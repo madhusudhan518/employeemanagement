@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react';
-import { Card, ListGroup } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchEmployee } from '../actions';
-import { getSubOrdinatesList } from '../utils';
+import { getTreeData } from '../utils';
+import TreeMenu from 'react-simple-tree-menu';
+import '../components/rstMain.css';
 
-var functionCalls = 0;
 class EmployeeOverview extends Component {
   componentDidMount(){
     const { employee, fetchEmployee } = this.props;
@@ -14,46 +14,19 @@ class EmployeeOverview extends Component {
       fetchEmployee(subordinate);
     })
   }
-  // renderEmployeeSubordinateList = (empName)=>{
-  //   const { employees } = this.props;
-  //   const employee = employees[empName.toLowerCase()];
-  //   if(employee){
-  //     return (
-  //     <Fragment key={functionCalls++}>
-  //       <b>{empName}</b>
-  //       {
-  //         employee["direct-subordinates"] ?
-  //           employee["direct-subordinates"].forEach((subordinate, index) => {
-  //              this.renderEmployeeSubordinateList(subordinate)
-  //           })
-  //           :
-  //           <h5 style={{ color: 'red' }}>No SubOrdinates</h5>
-  //       }
-  //     </Fragment>
-  //     )
-  //   }
-    
-  // }
-
-
+  
   render() {
     const { employee, name, employees } = this.props;
-    var SubOrdinateList = [];
-    var subordinateHtml = "";
-    getSubOrdinatesList(SubOrdinateList, name, employees, subordinateHtml);
-
+    const treeData = getTreeData(name, employees);
     if (!employee) {
       return <h2> Employee Not Found </h2>
     }
     return(
-      <Card className="text-center">
-        <Card.Header>Employee Overview</Card.Header>
-        <Card.Body>
-          <b>{name}</b>
-          {SubOrdinateList.map((name, index)=>{ return <h4 key={index}>{name}</h4>})}
-        </Card.Body>
+      <Fragment>
+        <h4>Employee Overview</h4>
+        <TreeMenu data={treeData} />
         <Link to={`/`}>Back</Link>
-      </Card>
+      </Fragment>
     )
   }
 }
@@ -70,3 +43,12 @@ const mapStateToProps = ({employeeReducer}, {match}) => {
 const mapDispatchToProps = { fetchEmployee };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeeOverview);
+
+// <Card className="text-center">
+      //   <Card.Header>Employee Overview</Card.Header>
+      //   <Card.Body>
+      //     <h4>{name}</h4>
+      //     {SubOrdinateList.map((name, index)=>{ return <h6 key={index}>{name}</h6>})}
+      //   </Card.Body>
+      //   <Link to={`/`}>Back</Link>
+      // </Card>
