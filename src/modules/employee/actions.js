@@ -1,3 +1,5 @@
+const API_URL = process.env.API_URL;
+ 
  export const ACTION_TYPES = {
    REQUEST_EMPLOYEE: 'employee/REQUEST_EMPLOYEE',
    RECEIVE_EMPLOYEE: 'employee/RECEIVE_EMPLOYEE',
@@ -27,7 +29,7 @@ export const storeSearch = name => ({
 
 export function fetchEmployee(name){
   return dispatch => {
-    return fetch(`http://api.additivasia.io/api/v1/assignment/employees/${name}`,
+    return fetch(`${API_URL}/${name}`,
       {
         method: "GET"
       })
